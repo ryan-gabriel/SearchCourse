@@ -1,12 +1,11 @@
 import { StatCard } from '@/components/admin';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
-import { ClickSource } from '@prisma/client';
 
 // Types
 interface RecentClick {
     id: string;
-    source: ClickSource;
+    source: 'WEB' | 'TELEGRAM';
     createdAt: Date;
     course: {
         title: string;
