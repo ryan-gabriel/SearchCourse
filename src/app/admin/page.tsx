@@ -1,9 +1,31 @@
 import { StatCard } from '@/components/admin';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
+import { ClickSource } from '@prisma/client';
+
+// Types
+interface RecentClick {
+    id: string;
+    source: ClickSource;
+    createdAt: Date;
+    course: {
+        title: string;
+        slug: string;
+    };
+}
+
+interface DashboardStats {
+    courseCount: number;
+    platformCount: number;
+    categoryCount: number;
+    roadmapCount: number;
+    activeCouponCount: number;
+    totalClicks: number;
+    recentClicks: RecentClick[];
+}
 
 // Dashboard stats fetching
-async function getDashboardStats() {
+async function getDashboardStats(): Promise<DashboardStats> {
     const [
         courseCount,
         platformCount,
