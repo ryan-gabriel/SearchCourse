@@ -1,0 +1,1 @@
+﻿src/app/api/admin/analytics/events/route.ts(31,21): error TS2353: Object literal may only specify known properties, and 'coupon' does not exist in type 'ClickEventInclude<DefaultArgs>'.
