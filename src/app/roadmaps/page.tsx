@@ -45,9 +45,10 @@ export default async function RoadmapsPage(props: RoadmapsPageProps) {
     const searchParams = await props.searchParams;
 
     // Parse filters
-    const validLevels = Object.values(CourseLevel).filter((l) => l !== 'ALL_LEVELS');
+    const validLevels = Object.values(CourseLevel).filter((l) => l !== 'ALL_LEVELS') as string[];
     const levelKey = searchParams.level?.toUpperCase();
-    const level = validLevels.includes(levelKey as any) ? (levelKey as any) : undefined;
+    type ValidLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+    const level = (levelKey && validLevels.includes(levelKey)) ? (levelKey as ValidLevel) : undefined;
 
     const filters = {
         q: typeof searchParams.q === 'string' ? searchParams.q : undefined,

@@ -406,43 +406,57 @@ export async function getCourseWithFullDetails(
 
     if (!course) return null;
 
+    // Type for the extended course with learning outcomes and syllabus
+    type CourseWithExtendedDetails = typeof course & {
+        instructorBio: string | null;
+        learningOutcomes: CourseLearningOutcomeDTO[];
+        syllabusSections: ({
+            id: string;
+            title: string;
+            duration: string | null;
+            sortOrder: number;
+            items: { id: string; title: string; sortOrder: number }[];
+        })[];
+    };
+    const extendedCourse = course as CourseWithExtendedDetails;
+
     return {
-        id: course.id,
-        title: course.title,
-        slug: course.slug,
-        description: course.description,
-        shortDescription: course.shortDescription,
-        instructorName: course.instructorName,
-        instructorBio: (course as any).instructorBio,
-        thumbnailUrl: course.thumbnailUrl,
-        originalPrice: Number(course.originalPrice),
-        currency: course.currency,
-        level: course.level,
-        rating: course.rating ? Number(course.rating) : null,
-        reviewCount: course.reviewCount,
-        studentCount: course.studentCount,
-        duration: course.duration,
-        lectureCount: course.lectureCount,
-        directUrl: course.directUrl,
-        affiliateUrl: course.affiliateUrl,
-        isActive: course.isActive,
-        isFeatured: course.isFeatured,
-        lastVerifiedAt: course.lastVerifiedAt,
-        createdAt: course.createdAt,
-        platform: course.platform,
-        category: course.category,
-        activeCoupon: course.coupons[0]
+        id: extendedCourse.id,
+        title: extendedCourse.title,
+        slug: extendedCourse.slug,
+        description: extendedCourse.description,
+        shortDescription: extendedCourse.shortDescription,
+        instructorName: extendedCourse.instructorName,
+        instructorBio: extendedCourse.instructorBio,
+        thumbnailUrl: extendedCourse.thumbnailUrl,
+        originalPrice: Number(extendedCourse.originalPrice),
+        currency: extendedCourse.currency,
+        level: extendedCourse.level,
+        rating: extendedCourse.rating ? Number(extendedCourse.rating) : null,
+        reviewCount: extendedCourse.reviewCount,
+        studentCount: extendedCourse.studentCount,
+        duration: extendedCourse.duration,
+        lectureCount: extendedCourse.lectureCount,
+        directUrl: extendedCourse.directUrl,
+        affiliateUrl: extendedCourse.affiliateUrl,
+        isActive: extendedCourse.isActive,
+        isFeatured: extendedCourse.isFeatured,
+        lastVerifiedAt: extendedCourse.lastVerifiedAt,
+        createdAt: extendedCourse.createdAt,
+        platform: extendedCourse.platform,
+        category: extendedCourse.category,
+        activeCoupon: extendedCourse.coupons[0]
             ? {
-                id: course.coupons[0].id,
-                code: course.coupons[0].code,
-                discountValue: Number(course.coupons[0].discountValue),
-                discountType: course.coupons[0].discountType,
-                finalPrice: Number(course.coupons[0].finalPrice),
-                expiresAt: course.coupons[0].expiresAt,
+                id: extendedCourse.coupons[0].id,
+                code: extendedCourse.coupons[0].code,
+                discountValue: Number(extendedCourse.coupons[0].discountValue),
+                discountType: extendedCourse.coupons[0].discountType,
+                finalPrice: Number(extendedCourse.coupons[0].finalPrice),
+                expiresAt: extendedCourse.coupons[0].expiresAt,
             }
             : null,
-        learningOutcomes: (course as any).learningOutcomes,
-        syllabusSections: ((course as any).syllabusSections || []).map((section: any) => ({
+        learningOutcomes: extendedCourse.learningOutcomes,
+        syllabusSections: (extendedCourse.syllabusSections || []).map((section) => ({
             id: section.id,
             title: section.title,
             duration: section.duration,
@@ -495,14 +509,14 @@ export async function updateCourseLearningOutcomes(
     courseId: string,
     outcomes: { text: string; sortOrder: number }[]
 ) {
-    return prisma.$transaction(async (tx: any) => {
+    return prisma.$transaction(async (tx) => {
         await tx.courseLearningOutcome.deleteMany({
             where: { courseId },
         });
 
         if (outcomes.length > 0) {
             await tx.courseLearningOutcome.createMany({
-                data: outcomes.map((o: any) => ({
+                data: outcomes.map((o) => ({
                     courseId,
                     text: o.text,
                     sortOrder: o.sortOrder,
@@ -526,7 +540,7 @@ export async function updateCourseSyllabus(
         items: { title: string; sortOrder: number }[];
     }[]
 ) {
-    return prisma.$transaction(async (tx: any) => {
+    return prisma.$transaction(async (tx) => {
         await tx.courseSyllabusSection.deleteMany({
             where: { courseId },
         });

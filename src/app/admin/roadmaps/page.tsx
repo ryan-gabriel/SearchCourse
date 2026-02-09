@@ -132,12 +132,12 @@ export default function RoadmapsPage() {
             isActive: roadmap.isActive,
             isFeatured: roadmap.isFeatured,
             sortOrder: roadmap.sortOrder,
-            level: (roadmap as any).level || 'ALL_LEVELS',
-            hasJobGuarantee: (roadmap as any).hasJobGuarantee || false,
-            hasCertificate: (roadmap as any).hasCertificate || false,
-            hasFreeResources: (roadmap as any).hasFreeResources || false,
-            isShortPath: (roadmap as any).isShortPath || false,
-            skillTags: (roadmap as any).skillTags?.join(', ') || '',
+            level: roadmap.level || 'ALL_LEVELS',
+            hasJobGuarantee: roadmap.hasJobGuarantee || false,
+            hasCertificate: roadmap.hasCertificate || false,
+            hasFreeResources: roadmap.hasFreeResources || false,
+            isShortPath: roadmap.isShortPath || false,
+            skillTags: roadmap.skillTags?.join(', ') || '',
         });
         setErrors({});
         setIsModalOpen(true);

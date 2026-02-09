@@ -114,9 +114,18 @@ export default function CourseContentPage({ params }: { params: Promise<{ id: st
         setSections([...sections, { title: 'New Section', duration: '', sortOrder: sections.length, items: [] }]);
     };
 
-    const updateSection = (index: number, field: keyof SyllabusSection, value: any) => {
+    type SyllabusSectionValue = string | number | SyllabusItem[] | undefined;
+    const updateSection = (index: number, field: keyof SyllabusSection, value: SyllabusSectionValue) => {
         const newSections = [...sections];
-        (newSections[index] as any)[field] = value;
+        if (field === 'items') {
+            newSections[index].items = value as SyllabusItem[];
+        } else if (field === 'sortOrder') {
+            newSections[index].sortOrder = value as number;
+        } else if (field === 'title') {
+            newSections[index].title = value as string;
+        } else if (field === 'duration') {
+            newSections[index].duration = value as string | undefined;
+        }
         setSections(newSections);
     };
 

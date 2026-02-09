@@ -276,10 +276,10 @@ export default async function CourseDetailPage(props: PageProps) {
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
                                     Course Content
                                 </h2>
-                                <CourseAccordion sections={course.syllabusSections.map((s: any) => ({
+                                <CourseAccordion sections={course.syllabusSections.map((s) => ({
                                     ...s,
                                     lectures: s.items.length,
-                                    items: s.items.map((i: any) => i.title),
+                                    items: s.items.map((i) => i.title),
                                     duration: s.duration || ''
                                 }))} />
                             </section>

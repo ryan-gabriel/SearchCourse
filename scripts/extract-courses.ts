@@ -109,7 +109,14 @@ function parseUdemy($: cheerio.CheerioAPI, category: string): ExtractedCourse | 
         }
 
         const jsonData = JSON.parse(jsonLdScript);
-        const courseData = jsonData['@graph']?.find((item: any) => item['@type'] === 'Course') || jsonData;
+        interface JsonLdItem {
+            '@type'?: string;
+            name?: string;
+            teaches?: string[];
+            syllabusSections?: { name?: string; duration?: string; items?: string[] }[];
+            [key: string]: unknown;
+        }
+        const courseData = jsonData['@graph']?.find((item: JsonLdItem) => item['@type'] === 'Course') || jsonData;
 
         if (!courseData || !courseData.name) {
             console.warn('No course data in JSON-LD');

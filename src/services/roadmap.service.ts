@@ -77,8 +77,7 @@ export async function searchRoadmaps(params: RoadmapSearchParams) {
         limit
     } = params;
 
-    // @ts-ignore - Using any to bypass editor sync issues with generated types
-    const where: any = {};
+    const where: Prisma.RoadmapWhereInput = {};
 
     if (query) {
         where.OR = [
@@ -113,8 +112,14 @@ export async function searchRoadmaps(params: RoadmapSearchParams) {
 
     const totalPages = Math.ceil(total / limit);
 
+    // Define type for the roadmap with included relations
+    type RoadmapWithCount = Awaited<ReturnType<typeof prisma.roadmap.findMany>>[number] & {
+        _count: { steps: number };
+        category?: { id: string; name: string; slug: string } | null;
+    };
+
     return {
-        data: roadmaps.map((r: any) => ({
+        data: (roadmaps as RoadmapWithCount[]).map((r) => ({
             id: r.id,
             title: r.title,
             slug: r.slug,

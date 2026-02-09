@@ -32,6 +32,25 @@ interface CoursesPageProps {
     searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
+// Types for filters
+interface Platform {
+    id: string;
+    name: string;
+    slug: string;
+    logoUrl: string | null;
+    _count?: { courses: number };
+}
+
+interface Category {
+    id: string;
+    name: string;
+    slug: string;
+    description: string | null;
+    iconName: string | null;
+    sortOrder: number;
+    _count?: { courses: number };
+}
+
 // Helper to build filter URL
 function buildFilterUrl(
     currentParams: Record<string, string | undefined>,
@@ -77,9 +96,9 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
     // Fetch data in parallel
     const [coursesResult, platforms, categories] = await Promise.all([
         searchCourses(validParams),
-        getAllPlatforms().catch(() => []),
-        getAllCategories().catch(() => []),
-    ]);
+        getAllPlatforms().catch((): Platform[] => []),
+        getAllCategories().catch((): Category[] => []),
+    ]) as [Awaited<ReturnType<typeof searchCourses>>, Platform[], Category[]];
 
     // Active filters display
     const activeFilters: { label: string; clearUrl: string }[] = [];

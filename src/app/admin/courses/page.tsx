@@ -213,7 +213,7 @@ export default function CoursesPage() {
             description: course.description || '',
             shortDescription: course.shortDescription || '',
             instructorName: course.instructorName || '',
-            instructorBio: (course as any).instructorBio || '',
+            instructorBio: course.instructorBio || '',
             thumbnailUrl: course.thumbnailUrl || '',
             originalPrice: course.originalPrice,
             currency: course.currency,
