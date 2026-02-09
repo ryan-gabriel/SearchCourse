@@ -53,11 +53,18 @@ const CATEGORY_COLORS: Record<string, string> = {
   'default': 'bg-gray-50 text-gray-600 dark:bg-gray-950/30 dark:text-gray-400',
 };
 
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  _count?: { courses: number };
+}
+
 export default async function HomePage() {
   // Fetch data in parallel
   const [featuredResult, categories, stats, roadmaps] = await Promise.all([
     getFeaturedCourses(8).catch(() => ({ data: [], pagination: { total: 0, page: 1, limit: 8, totalPages: 0, hasNext: false, hasPrev: false } })),
-    getAllCategories().catch(() => []),
+    getAllCategories().catch((): Category[] => []),
     getHomepageStats().catch(() => ({ coursesVerified: '500+', studentSavings: '$45k+', uptime: '99.9%' })),
     getFeaturedRoadmaps(4).catch(() => ({ data: [] })),
   ]);
