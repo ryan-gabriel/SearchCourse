@@ -53,6 +53,14 @@ const CATEGORY_COLORS: Record<string, string> = {
   'default': 'bg-gray-50 text-gray-600 dark:bg-gray-950/30 dark:text-gray-400',
 };
 
+interface Roadmap {
+  id: string;
+  slug: string;
+  title: string;
+  courseCount: number;
+  estimatedHours: number | null;
+}
+
 interface Category {
   id: string;
   name: string;
@@ -226,7 +234,7 @@ export default async function HomePage() {
 
             {/* Roadmap Preview Cards */}
             <div className="grid sm:grid-cols-2 gap-4">
-              {roadmaps.data.slice(0, 2).map((roadmap) => (
+              {roadmaps.data.slice(0, 2).map((roadmap: Roadmap) => (
                 <Link
                   key={roadmap.id}
                   href={`/roadmaps/${roadmap.slug}`}
