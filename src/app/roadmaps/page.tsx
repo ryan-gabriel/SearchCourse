@@ -66,7 +66,16 @@ export default async function RoadmapsPage(props: RoadmapsPageProps) {
 
     // Fetch savings for each roadmap (in parallel)
     const roadmapsWithSavings = await Promise.all(
-        roadmaps.map(async (roadmap) => {
+        roadmaps.map(async (roadmap: {
+            id: string;
+            slug: string;
+            title: string;
+            description: string | null;
+            iconName: string | null;
+            courseCount: number;
+            isFeatured: boolean;
+            estimatedHours: number | null;
+        }) => {
             try {
                 const details = await getRoadmapBySlug(roadmap.slug);
                 return {
