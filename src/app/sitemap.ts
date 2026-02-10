@@ -64,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     // Generate course pages
-    const coursePages: MetadataRoute.Sitemap = courses.map((course) => ({
+    const coursePages: MetadataRoute.Sitemap = courses.map((course: { slug: string; updatedAt: Date; }) => ({
         url: `${baseUrl}/courses/${course.slug}`,
         lastModified: course.updatedAt,
         changeFrequency: 'daily' as const,
@@ -72,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // Generate roadmap pages
-    const roadmapPages: MetadataRoute.Sitemap = roadmaps.map((roadmap) => ({
+    const roadmapPages: MetadataRoute.Sitemap = roadmaps.map((roadmap: { slug: string; updatedAt: Date; }) => ({
         url: `${baseUrl}/roadmaps/${roadmap.slug}`,
         lastModified: roadmap.updatedAt,
         changeFrequency: 'weekly' as const,
