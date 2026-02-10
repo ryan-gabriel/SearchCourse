@@ -10,6 +10,7 @@ import { Map, Clock, BookOpen, ArrowRight, Award } from 'lucide-react';
 import { searchRoadmaps, getRoadmapBySlug, getAllCategories } from '@/services';
 import { RoadmapFilters } from '@/components/roadmap/RoadmapFilters';
 import { formatPrice } from '@/lib/utils';
+import { Roadmap } from '@prisma/client';
 const VALID_LEVELS = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'] as const;
 type ValidLevel = (typeof VALID_LEVELS)[number];
 
@@ -123,7 +124,17 @@ export default async function RoadmapsPage(props: RoadmapsPageProps) {
                     <div className="flex-1">
                         {roadmapsWithSavings.length > 0 ? (
                             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                {roadmapsWithSavings.map((roadmap) => (
+                                {roadmapsWithSavings.map((roadmap: {
+                                    id: string;
+                                    title: string;
+                                    slug: string;
+                                    description: string | null;
+                                    iconName: string | null;
+                                    courseCount: number;
+                                    estimatedHours: number | null;
+                                    isFeatured: boolean;
+                                    totalSavings: number;
+                                }) => (
                                     <Link
                                         key={roadmap.id}
                                         href={`/roadmaps/${roadmap.slug}`}
