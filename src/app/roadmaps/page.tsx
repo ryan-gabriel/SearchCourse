@@ -60,7 +60,7 @@ export default async function RoadmapsPage(props: RoadmapsPageProps) {
 
     // Fetch data in parallel
     const [categories, { data: roadmaps }] = await Promise.all([
-        getAllCategories().catch(() => []),
+        getAllCategories().catch(() => [] as Awaited<ReturnType<typeof getAllCategories>>),
         searchRoadmaps(filters)
     ]);
 
