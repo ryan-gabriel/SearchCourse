@@ -10,7 +10,8 @@ import { Map, Clock, BookOpen, ArrowRight, Award } from 'lucide-react';
 import { searchRoadmaps, getRoadmapBySlug, getAllCategories } from '@/services';
 import { RoadmapFilters } from '@/components/roadmap/RoadmapFilters';
 import { formatPrice } from '@/lib/utils';
-import { CourseLevel } from '@prisma/client';
+const VALID_LEVELS = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'] as const;
+type ValidLevel = (typeof VALID_LEVELS)[number];
 
 interface RoadmapsPageProps {
     searchParams: Promise<{
@@ -45,10 +46,8 @@ export default async function RoadmapsPage(props: RoadmapsPageProps) {
     const searchParams = await props.searchParams;
 
     // Parse filters
-    const validLevels = Object.values(CourseLevel).filter((l) => l !== 'ALL_LEVELS') as string[];
     const levelKey = searchParams.level?.toUpperCase();
-    type ValidLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
-    const level = (levelKey && validLevels.includes(levelKey)) ? (levelKey as ValidLevel) : undefined;
+    const level = (levelKey && (VALID_LEVELS as readonly string[]).includes(levelKey)) ? (levelKey as ValidLevel) : undefined;
 
     const filters = {
         q: typeof searchParams.q === 'string' ? searchParams.q : undefined,
