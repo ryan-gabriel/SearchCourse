@@ -163,7 +163,7 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {categories.slice(0, 4).map((cat) => {
+            {categories.slice(0, 4).map((cat: Category) => {
               const IconComponent = CATEGORY_ICONS[cat.slug] || CATEGORY_ICONS.default;
               const colorClass = CATEGORY_COLORS[cat.slug] || CATEGORY_COLORS.default;
               return (
