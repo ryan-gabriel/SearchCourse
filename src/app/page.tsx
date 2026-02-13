@@ -33,8 +33,8 @@ import {
 } from '@/services';
 import { SearchForm } from '@/components/ui/SearchForm';
 
-// Revalidate every hour for ISR
-export const revalidate = 3600;
+// Always render dynamically — requires live DB connection
+export const dynamic = 'force-dynamic';
 
 // Icon mapping for categories
 const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {

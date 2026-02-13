@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     },
 };
 
-// Revalidate every hour for ISR
-export const revalidate = 3600;
+// Always render dynamically — requires live DB connection
+export const dynamic = 'force-dynamic';
 
 export default async function RoadmapsPage(props: RoadmapsPageProps) {
     const searchParams = await props.searchParams;

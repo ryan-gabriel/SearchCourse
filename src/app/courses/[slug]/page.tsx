@@ -57,8 +57,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
 }
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Always render dynamically — requires live DB connection
+export const dynamic = 'force-dynamic';
 
 
 

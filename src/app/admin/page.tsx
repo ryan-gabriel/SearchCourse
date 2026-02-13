@@ -2,6 +2,9 @@ import { StatCard } from '@/components/admin';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
 
+// Skip static prerendering — requires live DB connection
+export const dynamic = 'force-dynamic';
+
 // Types
 interface RecentClick {
     id: string;

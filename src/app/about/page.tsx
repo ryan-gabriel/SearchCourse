@@ -48,8 +48,8 @@ const VALUES = [
     },
 ];
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Always render dynamically — requires live DB connection
+export const dynamic = 'force-dynamic';
 
 const SYSTEM_COMPONENTS = [
     {

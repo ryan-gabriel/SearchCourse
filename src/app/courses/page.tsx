@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     },
 };
 
-// Revalidate every 5 minutes
-export const revalidate = 300;
+// Always render dynamically — requires live DB connection
+export const dynamic = 'force-dynamic';
 
 interface CoursesPageProps {
     searchParams: Promise<Record<string, string | string[] | undefined>>;

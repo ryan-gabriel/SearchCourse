@@ -60,8 +60,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
 }
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Always render dynamically — requires live DB connection
+export const dynamic = 'force-dynamic';
 
 const VALUE_PROPS = [
     {
@@ -167,12 +167,12 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                                     className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
                                 >
                                     <div className={`w-10 h-10 rounded-lg mb-3 flex items-center justify-center ${prop.color === 'blue' ? 'bg-blue-100 dark:bg-blue-950/50' :
-                                            prop.color === 'purple' ? 'bg-purple-100 dark:bg-purple-950/50' :
-                                                'bg-green-100 dark:bg-green-950/50'
+                                        prop.color === 'purple' ? 'bg-purple-100 dark:bg-purple-950/50' :
+                                            'bg-green-100 dark:bg-green-950/50'
                                         }`}>
                                         <prop.icon className={`w-5 h-5 ${prop.color === 'blue' ? 'text-blue-600 dark:text-blue-400' :
-                                                prop.color === 'purple' ? 'text-purple-600 dark:text-purple-400' :
-                                                    'text-green-600 dark:text-green-400'
+                                            prop.color === 'purple' ? 'text-purple-600 dark:text-purple-400' :
+                                                'text-green-600 dark:text-green-400'
                                             }`} />
                                     </div>
                                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
