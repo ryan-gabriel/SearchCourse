@@ -83,6 +83,8 @@ export default async function HomePage() {
 
       {/* Hero Section */}
       <section className="relative bg-white dark:bg-gray-950 overflow-hidden pt-16 pb-20 lg:pt-26 lg:pb-28">
+
+        <p>Impact-Site-Verification: af12a67e-a7a4-4a80-8711-39987c156786</p>
         {/* Background decorative elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none overflow-hidden">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100/40 dark:bg-blue-900/10 rounded-full blur-3xl" />
