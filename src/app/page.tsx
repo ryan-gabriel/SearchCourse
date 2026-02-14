@@ -92,12 +92,6 @@ export default async function HomePage() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 text-xs font-semibold text-indigo-700 dark:text-indigo-300 mb-6">
-            <Zap className="w-3 h-3" />
-            <span>Automated Discovery Engine v2.0</span>
-          </div>
-
           {/* Headline */}
           <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]">
             Master New Skills. <br className="hidden md:block" />
